@@ -92,9 +92,10 @@ jobs:
           script: |
             set -e
             cd /opt/fulcrum
+            SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
             printf 'GITHUB_REPOSITORY=%s\nIMAGE_TAG=sha-%s\nDB_CONNECTION_STRING=%s\nREDIS_CONNECTION_STRING=%s\nREDIS_PASSWORD=%s\nPOSTGRES_USER=%s\nPOSTGRES_PASSWORD=%s\nPOSTGRES_DB=%s\nJWT_SECRET_KEY=%s\nJWT_ISSUER=%s\nJWT_AUDIENCE=%s\nJWT_EXPIRY_MINUTES=60\n' \
               '${{ github.repository }}' \
-              '${{ github.sha }}' \
+              "${SHORT_SHA}" \
               '${{ secrets.DB_CONNECTION_STRING }}' \
               '${{ secrets.REDIS_CONNECTION_STRING }}' \
               '${{ secrets.REDIS_PASSWORD }}' \
